@@ -9,3 +9,5 @@ test/project/AndroidManifest.xml
 test/project/SampleApp/PhoneGap.plist
 test/project/SampleApp.xcodeproj/project.pbxproj
 test/project/SampleApp/Plugins/*
+# OS X
+.DS_Store
