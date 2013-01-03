@@ -1,0 +1,13 @@
+{
+    "name": "cordova-jira",
+    "version":"0.0.1",
+    "description": "jira spam all up in yo inbox",
+    "author": "Fil Maj <filmaj@apache.org>",
+    "dependencies": {
+        "request":"2.12.0",
+        "optimist":"0.3.5",
+        "ncallbacks":"1.0.0",
+        "underscore":"1.4.3"
+    },
+    "engine": ">=0.8.x"
+}

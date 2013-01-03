@@ -1,22 +1,25 @@
-# Cordova Laboratory
+# cordova-jira
 
-> Caution: Safety Goggles are Recommended!
+> create issues + subtasks in JIRA when cordova changes versions
 
-## Purpose
+## Prerequisites
 
-The purpose of this repo is for experimental code. Examples include demo apps,
-native api explorations, or anything really that does not fit in an existing Cordova platform.
+You will need [node.js](http://nodejs.org), and `npm` which comes bundled with it.
 
-## Project Organization
+## Installation
 
-> Everyone works on a branch
+    npm install
 
-`master` branch should *never* have content.
+## Usage
 
-Each project should create a separate branch to work on. There are major benefits
-to this practice:
+    ./node jira.js --version=<version> --username=<username> --password=<password>
 
-- Each project has an isolate git history, which allows for easy migration to
-  a new git repository;
-- Working directory is not polluted with the files of other projects.
-- Projects will not step on each others toes.
+Where:
+
+ - `version`: the version string to use. i.e. 2.3.0, 2.4.0rc1, 3.0.0rc2
+ - `username`: your Apache JIRA username
+ - `password`: your Apache JIRA password
+
+## Contributors
+
+See the `package.json` file for information.
