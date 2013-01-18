@@ -6,6 +6,7 @@ var argv    = require('optimist').argv;
 var version = argv.version;
 var username = argv.username;
 var password = argv.password;
+var no_app = argv.no_app;
 
 if (!version || !username || !password) {
     console.log("Usage: node jira.js --version=<version> --username=<username> --password=<password>");
@@ -119,17 +120,22 @@ request.get(API_URL + 'project/' + JIRA_PROJECT_KEY + '/components', function(er
                     }
                     console.log('Parent issue created.');
 
-                    // 38 is the total number of subtasks currently in a tag parent issue
+                    // 37 is the total number of subtasks currently in a tag parent issue
                     // breakdown:
                     // - tag js
                     // - tag hello world app
                     // - tag mobile-spec
                     // - tag docs
-                    // - 11 platforms * 3 tasks (update js, update sample app, tag) = 33
+                    // - tag cli
+                    // - 11 platforms * 2 tasks (update js, tag) = 22 
+                    // - minus 1: cordova-mac doesn't need update-js
+                    // - 11 platforms * 1 optional task (update sample app) = 11
+                    // - minus 1: cordova-mac doesn't need update-app
                     // - generate source release
-                    // - cordova-mac does not need update-js or update-sample-app tasks
-                    //   = 36
-                    var end = n(36, function() {
+                    //   = 37
+                    var num_callbacks = 37;
+                    if (no_app) num_callbacks -= 10;
+                    var end = n(num_callbacks, function() {
                         console.log('All sub-tasks created. JIRA spam complete.');
                     });
                     var subtask_error_check = function(err, res, body) {
@@ -142,6 +148,7 @@ request.get(API_URL + 'project/' + JIRA_PROJECT_KEY + '/components', function(er
                     };
 
                     create(subtask(parent_key, "Tag Cordova-JS", "Tag JavaScript so that each platform can cut a release.", component_map['CordovaJS'], version_id), subtask_error_check);
+                    create(subtask(parent_key, "Tag cordova-cli", "Tag cordova-cli, verify it works with iOS, Android and BlackBerry.", component_map['CLI'], version_id), subtask_error_check);
                     create(subtask(parent_key, "Tag Hello World App", "Tag sample application so that each platform can cut a copy of the application.", component_map['App Hello World'], version_id), subtask_error_check);
                     create(subtask(parent_key, "Update JavaScript for Android", "Update the cordova.js after CordovaJS has been tagged.", component_map['Android'], version_id), subtask_error_check);
                     create(subtask(parent_key, "Update JavaScript for Bada", "Update the cordova.js after CordovaJS has been tagged.", component_map['Bada'], version_id), subtask_error_check);
@@ -153,16 +160,18 @@ request.get(API_URL + 'project/' + JIRA_PROJECT_KEY + '/components', function(er
                     create(subtask(parent_key, "Update JavaScript for WP7", "Update the cordova.js after CordovaJS has been tagged.", component_map['WP7'], version_id), subtask_error_check);
                     create(subtask(parent_key, "Update JavaScript for WP8", "Update the cordova.js after CordovaJS has been tagged.", component_map['WP8'], version_id), subtask_error_check);
                     create(subtask(parent_key, "Update JavaScript for Windows 8", "Update the cordova.js after CordovaJS has been tagged.", component_map['Windows 8'], version_id), subtask_error_check);
-                    create(subtask(parent_key, "Update www/ Application for Android", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Android'], version_id), subtask_error_check);
-                    create(subtask(parent_key, "Update www/ Application for Bada", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Bada'], version_id), subtask_error_check);
-                    create(subtask(parent_key, "Update www/ Application for BlackBerry", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['BlackBerry'], version_id), subtask_error_check);
-                    create(subtask(parent_key, "Update www/ Application for iOS", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['iOS'], version_id), subtask_error_check);
-                    create(subtask(parent_key, "Update www/ Application for Qt", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Qt'], version_id), subtask_error_check);
-                    create(subtask(parent_key, "Update www/ Application for Tizen", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Tizen'], version_id), subtask_error_check);
-                    create(subtask(parent_key, "Update www/ Application for webOS", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['webOS'], version_id), subtask_error_check);
-                    create(subtask(parent_key, "Update www/ Application for WP7", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['WP7'], version_id), subtask_error_check);
-                    create(subtask(parent_key, "Update www/ Application for WP8", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['WP8'], version_id), subtask_error_check);
-                    create(subtask(parent_key, "Update www/ Application for Windows 8", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Windows 8'], version_id), subtask_error_check);
+                    if (!no_app) {
+                        create(subtask(parent_key, "Update www/ Application for Android", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Android'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Update www/ Application for Bada", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Bada'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Update www/ Application for BlackBerry", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['BlackBerry'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Update www/ Application for iOS", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['iOS'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Update www/ Application for Qt", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Qt'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Update www/ Application for Tizen", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Tizen'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Update www/ Application for webOS", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['webOS'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Update www/ Application for WP7", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['WP7'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Update www/ Application for WP8", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['WP8'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Update www/ Application for Windows 8", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Windows 8'], version_id), subtask_error_check);
+                    }
                     create(subtask(parent_key, "Tag Android", "After updating the JavaScript and sample application, the release can be tagged.", component_map['Android'], version_id), subtask_error_check);
                     create(subtask(parent_key, "Tag Bada", "After updating the JavaScript and sample application, the release can be tagged.", component_map['Bada'], version_id), subtask_error_check);
                     create(subtask(parent_key, "Tag BlackBerry", "After updating the JavaScript and sample application, the release can be tagged.", component_map['BlackBerry'], version_id), subtask_error_check);

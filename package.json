@@ -1,6 +1,6 @@
 {
     "name": "cordova-jira",
-    "version":"0.0.1",
+    "version":"0.0.2",
     "description": "jira spam all up in yo inbox",
     "author": "Fil Maj <filmaj@apache.org>",
     "dependencies": {
