@@ -68,3 +68,9 @@ cp $BUILD_PATH/javascript/cordova.b2g.js $PROJECT_PATH/www/cordova-$VERSION.js
 # interpolate the app name into manifest.webapp
 echo "Updating manifest.webapp ..."
 sed -i '' -e "s/__NAME__/${APPNAME}/g" "$MANIFEST_PATH"
+
+echo "Updating npm modules ..."
+cd $PROJECT_PATH
+npm install
+cd $BUILD_PATH
+
