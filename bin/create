@@ -61,6 +61,8 @@ trap on_exit EXIT
 
 echo "Copying assets and resources ..."
 cp -r $BUILD_PATH/bin/templates/project $PROJECT_PATH
+cp -r $BUILD_PATH/framework/ $PROJECT_PATH/www
+cp -r $BUILD_PATH/framework/install.html $PROJECT_PATH/www/install.html
 
 echo "Building cordova-$VERSION.js ..."
 cp $BUILD_PATH/javascript/cordova.b2g.js $PROJECT_PATH/www/cordova-$VERSION.js
