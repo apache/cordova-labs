@@ -1,0 +1,16 @@
+{
+  "version": "0.1",
+  "name": "__NAME__",
+  "description": "Your new awesome Open Web App",
+  "launch_path": "/index.html",
+  "icons": {
+    "48": "/res/icon/b2g/icon-48.png",
+    "128": "/res/icon/b2g/icon-128.png"
+  },
+  "developer": {
+    "name": "Your Name",
+    "url": "http://yourawesomeapp.com"
+  },
+  "installs_allowed_from": ["*"],
+  "appcache_path": "/cache.manifest"
+}
