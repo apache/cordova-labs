@@ -1,6 +1,8 @@
-// commit b711f6efe299228c75e04011a8df24803119e85a
+// Platform: firefoxos
 
-// File generated at :: Sat Jan 26 2013 15:20:57 GMT-0500 (EST)
+// commit 349c6e1c8bcaf6f13af20010e04f6b03b5f4b0b7
+
+// File generated at :: Mon Jan 28 2013 21:41:55 GMT-0500 (EST)
 
 /*
  Licensed to the Apache Software Foundation (ASF) under one
@@ -942,7 +944,7 @@ module.exports = {
 
 });
 
-// file: lib/b2g/exec.js
+// file: lib/firefoxos/exec.js
 define("cordova/exec", function(require, exports, module) {
 
 /**
@@ -961,10 +963,10 @@ define("cordova/exec", function(require, exports, module) {
  */
 
 var plugins = {
-    "Device": require('cordova/plugin/b2g/device'),
-    "NetworkStatus": require('cordova/plugin/b2g/network'),
-    "Accelerometer" : require('cordova/plugin/b2g/accelerometer')
-    //"Notification" : require('cordova/plugin/b2g/notification')
+    "Device": require('cordova/plugin/firefoxos/device'),
+    "NetworkStatus": require('cordova/plugin/firefoxos/network'),
+    "Accelerometer" : require('cordova/plugin/firefoxos/accelerometer')
+    //"Notification" : require('cordova/plugin/firefoxos/notification')
 };
 
 module.exports = function(success, fail, service, action, args) {
@@ -1084,11 +1086,11 @@ exports.reset();
 
 });
 
-// file: lib/b2g/platform.js
+// file: lib/firefoxos/platform.js
 define("cordova/platform", function(require, exports, module) {
 
 module.exports = {
-    id: "b2g",
+    id: "firefoxos",
     initialize: function() {
     }
 };
@@ -3677,70 +3679,6 @@ module.exports = accelerometer;
 
 });
 
-// file: lib/b2g/plugin/b2g/accelerometer.js
-define("cordova/plugin/b2g/accelerometer", function(require, exports, module) {
-
-var cordova = require('cordova'),
-    callback;
-
-module.exports = {
-    start: function (win, fail, args) {
-        window.removeEventListener("devicemotion", callback);
-        callback = function (motion) {
-            win({
-                x: motion.accelerationIncludingGravity.x,
-                y: motion.accelerationIncludingGravity.y,
-                z: motion.accelerationIncludingGravity.z,
-                timestamp: motion.timestamp
-            });
-        };
-        window.addEventListener("devicemotion", callback);
-    },
-    stop: function (win, fail, args) {
-        window.removeEventListener("devicemotion", callback);
-    }
-};
-
-});
-
-// file: lib/b2g/plugin/b2g/device.js
-define("cordova/plugin/b2g/device", function(require, exports, module) {
-
-var channel = require('cordova/channel'),
-    cordova = require('cordova');
-
-// Tell cordova channel to wait on the CordovaInfoReady event
-channel.waitForInitialization('onCordovaInfoReady');
-
-module.exports = {
-    getDeviceInfo : function(win, fail, args){
-        win({
-            platform: "Firefox OS",
-            version: "0.0.1",
-            model: "Beta Phone",
-            name: "Beta Phone", // deprecated: please use device.model
-            uuid: "somestring",
-            cordova: "2.4.0rc1"
-        });
-    }
-};
-
-});
-
-// file: lib/b2g/plugin/b2g/network.js
-define("cordova/plugin/b2g/network", function(require, exports, module) {
-
-var cordova = require('cordova');
-
-module.exports = {
-    getConnectionInfo: function (win, fail, args) {
-        win("3G");
-        return { "status": cordova.callbackStatus.OK, "message": "3G"};
-    }
-};
-
-});
-
 // file: lib/common/plugin/battery.js
 define("cordova/plugin/battery", function(require, exports, module) {
 
@@ -4338,6 +4276,69 @@ module.exports = function(exportFunc) {
     exportFunc('cordova/plugin/Metadata', 'Metadata');
     exportFunc('cordova/plugin/requestFileSystem', 'requestFileSystem');
     exportFunc('cordova/plugin/resolveLocalFileSystemURI', 'resolveLocalFileSystemURI');
+};
+
+});
+
+// file: lib/firefoxos/plugin/firefoxos/accelerometer.js
+define("cordova/plugin/firefoxos/accelerometer", function(require, exports, module) {
+
+var cordova = require('cordova'),
+    callback;
+
+module.exports = {
+    start: function (win, fail, args) {
+        window.removeEventListener("devicemotion", callback);
+        callback = function (motion) {
+            win({
+                x: motion.accelerationIncludingGravity.x,
+                y: motion.accelerationIncludingGravity.y,
+                z: motion.accelerationIncludingGravity.z,
+                timestamp: motion.timestamp
+            });
+        };
+        window.addEventListener("devicemotion", callback);
+    },
+    stop: function (win, fail, args) {
+        window.removeEventListener("devicemotion", callback);
+    }
+};
+
+});
+
+// file: lib/firefoxos/plugin/firefoxos/device.js
+define("cordova/plugin/firefoxos/device", function(require, exports, module) {
+
+var channel = require('cordova/channel'),
+    cordova = require('cordova');
+
+// Tell cordova channel to wait on the CordovaInfoReady event
+channel.waitForInitialization('onCordovaInfoReady');
+
+module.exports = {
+    getDeviceInfo : function(win, fail, args){
+        win({
+            platform: "Firefox OS",
+            version: "0.0.1",
+            model: "Beta Phone",
+            name: "Beta Phone", // deprecated: please use device.model
+            uuid: "somestring",
+            cordova: "2.4.0rc1"
+        });
+    }
+};
+
+});
+
+// file: lib/firefoxos/plugin/firefoxos/network.js
+define("cordova/plugin/firefoxos/network", function(require, exports, module) {
+
+var cordova = require('cordova');
+
+module.exports = {
+    getConnectionInfo: function (win, fail, args) {
+        win("3G");
+    }
 };
 
 });
@@ -5696,10 +5697,6 @@ window.cordova = require('cordova');
     }
 
 }(window));
-
-// file: lib/scripts/bootstrap-b2g.js
-
-require('cordova/channel').onNativeReady.fire();
 
 
 })();

@@ -13,7 +13,7 @@ Introduction
 
 Firefox OS is an open source operating system for smartphones and tablet computers being developed by Mozilla. It is designed to allow HTML5 applications to integrate directly with the device's hardware using JavaScript.
 
-cordova-b2g allows developers to use the cross platform APIs in Cordova to target the Firefox OS. Most APIs are just proxied to the matching Firefox OS API calls.
+cordova-firefoxos allows developers to use the cross platform APIs in Cordova to target the Firefox OS. Most APIs are just proxied to the matching Firefox OS API calls.
 
 
 Getting Started
@@ -23,15 +23,15 @@ A lot of good documentation is available on the [Mozilla Developer Network](http
 
 A simulator (runs as a Firefox plugin) is availble [here](http://people.mozilla.org/~myk/r2d2b2g/)
 
-Installing the cordova-b2g framework
+Installing the cordova-firefoxos framework
 ====================================
 
-Cloning the cordova-b2g repository always provides you with the latest (EDGE) version of the Cordova code.  To clone the repository, do the following:
+Cloning the cordova-firefoxos repository always provides you with the latest (EDGE) version of the Cordova code.  To clone the repository, do the following:
 
     $ cd ~/some/path
-    $ git clone https://github.com/gtanner/cordova-b2g.git
+    $ git clone https://github.com/gtanner/cordova-firefoxos.git
 
-Cordova B2G Developer Tools
+Cordova Firefox OS Developer Tools
 ---------------------------
 
 The Cordova developer tooling is split between general tooling and project level tooling.  Currently the tooling will only work on OSX or Linux.
@@ -55,13 +55,13 @@ needed to install like you would from an app store.
 You may also use the simluator and Add the www directory to it (point at the manifest.webapp) in that folder. This will
 allow you to refresh the app easier when developing.
 
-#### Creating a new Cordova B2G
+#### Creating a new Cordova Firefox OS Project
 
     ./bin/create ~/Desktop/myapp MyApp
 
 ### Project Commands
 
-These commands live in a generated Cordova B2G project. 
+These commands live in a generated Cordova FirefoxOS project. 
 
     ./cordova/run ............................ install to a connected device or simulator
     ./cordova/build .......................... build project, but do not deploy to simulator or device
