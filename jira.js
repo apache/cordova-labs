@@ -9,7 +9,8 @@ var password = argv.password;
 var no_app = argv.no_app;
 
 if (!version || !username || !password) {
-    console.log("Usage: node jira.js --version=<version> --username=<username> --password=<password>");
+    console.log("Usage: node jira.js --version=<version> --username=<username> --password=<password> [--no_app]");
+    console.log("The --no_app parameter will not create subtasks to update the hello-world application (in case no changes went into it).");
     console.log("Example: node jira.js --version=2.3.0rc2 --username=fil --password=poop");
     return;
 }
