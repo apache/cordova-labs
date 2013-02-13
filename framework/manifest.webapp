@@ -1,0 +1,28 @@
+{
+    "name": "Apache Cordova",
+    "description": "Apache Cordova",
+    "launch_path": "/index.html",
+    "orientation": "portrait-primary",
+    "fullscreen": true,
+    "developer": {
+        "name": "Herm Wong",
+        "url": "https://github.com/hermwong/incubator-cordova-b2g"
+    },
+    "permissions": [
+        "content-camera",
+        "camera"
+    ],
+    "activities": {
+        "record": {
+            "filters": {
+                "type": "photos"
+            },
+            "disposition": "window"
+        }
+    },
+    "default_locale": "en-US",
+    "icons": {
+        "120": "/style/icons/cordova.png",
+        "60": "/style/icons/cordova_48.png"
+    }
+}

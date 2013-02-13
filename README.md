@@ -1,13 +1,6 @@
 Cordova FirefoxOS (Boot 2 Gecko)
 ==============================
 
-Directory Structure
--------------------
-
-    framework/ ... Any framework (non app specific code)
-    javascript/ .. Cordova JavaScript (built from the cordova-js project)
-    bin/ ......... Scripts for project creation
-
 Introduction
 ------------
 
@@ -16,57 +9,38 @@ Firefox OS is an open source operating system for smartphones and tablet compute
 cordova-firefoxos allows developers to use the cross platform APIs in Cordova to target the Firefox OS. Most APIs are just proxied to the matching Firefox OS API calls.
 
 
-Getting Started
-===============
+Prerequisties:
+==============
 
 A lot of good documentation is available on the [Mozilla Developer Network](https://developer.mozilla.org/en/docs/Mozilla/Firefox_OS)
 
 A simulator (runs as a Firefox plugin) is availble [here](http://people.mozilla.org/~myk/r2d2b2g/)
 
-Installing the cordova-firefoxos framework
-====================================
+The following software is required to package and deploy an app directly to a Firefox OS device:
+-[Android SDK](http://developer.android.com/sdk/index.html)
+-on Mac you will need to install XCode & Command Line Tools for XCode
+-Firefox OS device with OS Version 1.0.0.0 prerelease
 
-Cloning the cordova-firefoxos repository always provides you with the latest (EDGE) version of the Cordova code.  To clone the repository, do the following:
+Getting Started:
+================
 
-    $ cd ~/some/path
-    $ git clone https://github.com/gtanner/cordova-firefoxos.git
+1. Bootstrap your computer so to make sure that you have all the prerequisites for building Firefox
+- instructions can be found under the "Build prerequisites" section on the following [page](https://developer.mozilla.org/en-US/docs/Simple_Firefox_build)
+2. Clone the Firefox repository: git clone git://github.com/mozilla/mozilla-central.git
+3. Build Firefox by following the instructions under the "Building" on the following [page](https://developer.mozilla.org/en-US/docs/Simple_Firefox_build)
+4. Clone the cordova-firefoxos repository
 
-Cordova Firefox OS Developer Tools
----------------------------
+If Deploying to device:
 
-The Cordova developer tooling is split between general tooling and project level tooling.  Currently the tooling will only work on OSX or Linux.
+5. Modify the XPCSHELL constant in the Makefile to point to the location of xpcshell on your computer
+6. Modify the ADB constant in the Makefile to point to the location of adb on your computer
+7. Make sure the Firefox OS device has remote debugging enabled. To enable remote debugging navigate to the following settings on the device: Settings->Device Information->More Information->Developer->Remote Debugging.
+8. Run the Makefile by typing "make" into the command line.
+9. The device should prompt you to allow a remote connection, your Apache Cordova Firefox OS app will be installed to the device once you accept the prompt. 
 
-### General Commands
+If Deploying to simulator:
 
-    ./bin/create [path appname] ...... creates a sample app with the specified path
+7. Open the Firefox OS simulator add-on by going to Tools->Web Developer->Firefox OS Simulator
+8. Start the simulator
+9. Click on the Add Directory button and then choose the manifest.webapp file in the framework folder of your Apache Cordova app.
 
-#### Running the Example Project
-
-Create the example project and build it to the first device:
-
-    ./bin/create
-    cd example
-    ./cordova/debug
-
-This will start up a web server on port 8008 and ask you to navigate your
-phone or simulator to http://localhost:8008/install.html.  This is really only
-needed to install like you would from an app store.
-
-You may also use the simluator and Add the www directory to it (point at the manifest.webapp) in that folder. This will
-allow you to refresh the app easier when developing.
-
-#### Creating a new Cordova Firefox OS Project
-
-    ./bin/create ~/Desktop/myapp MyApp
-
-### Project Commands
-
-These commands live in a generated Cordova FirefoxOS project. 
-
-    ./cordova/run ............................ install to a connected device or simulator
-    ./cordova/build .......................... build project, but do not deploy to simulator or device
-
-There is currently no way to automate installing to the simulator or device so
-we are currently just hosting an install.html file on the webserver hosting the app
-that you can point your device/simulator to and install the app.  Once more commandline
-tools become available this will probably change.
