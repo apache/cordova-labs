@@ -5,14 +5,16 @@ PORT_LOCAL = 6000
 XPCSHELL ?= ~/Documents/mozilla/mozilla-central/obj-x86_64-apple-darwin11.4.2/dist/bin/xpcshell
 ADB ?= adb
 FOLDER = framework
-PGVERSION = 2.4.0
+VERSION := $(shell cat VERSION)
+
+
 
 all :: packaged install
 
 copy_js:
-	cp lib/cordova.webos.js framework/cordova-$(PGVERSION).js
+	cp lib/cordova.firefoxos.js framework/cordova-$(VERSION).js
 
-package:
+package: copy_js
 	cd ./${FOLDER} && zip -X ./application.zip ./* -x application.zip
 
 packaged: package
