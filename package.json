@@ -28,6 +28,7 @@
         }
     ],
     "domains": [
+        "docs.cordova.io",
         "stage.docs.cordova.io"
     ],
     "subdomain": "mwbrooks.redirect-docs-cordova-io"
