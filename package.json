@@ -1,0 +1,31 @@
+{
+    "name": "redirect-docs-cordova-io",
+    "description": "Redirect/Rewrite requests from 'docs.cordova.io' to 'cordova.apache.org/docs'",
+    "version": "0.0.1-4",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/apache/cordova-labs"
+    },
+    "private": "true",
+    "main": "./lib/index.js",
+    "scripts": {
+        "start": "node ./lib/index.js"
+    },
+    "engines": {
+        "node": ">=0.8.0",
+        "npm": ">=1.1.0"
+    },
+    "dependencies": {
+        "express": "3.x.x"
+    },
+    "devDependencies": {},
+    "optionalDependencies": {},
+    "contributors": [
+        {
+            "name": "Michael Brooks",
+            "email": "michael@michaelbrooks.ca",
+            "url": "http://michaelbrooks.ca/"
+        }
+    ],
+    "subdomain": "mwbrooks.redirect-docs-cordova-io"
+}

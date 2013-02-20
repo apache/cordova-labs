@@ -1,43 +1,40 @@
-# Cordova Laboratory
+# Cordova Documentation Redirect Server
 
-> Caution: Safety Goggles are Recommended!
+## Redirects
 
-## Purpose
+    Request        Redirect
+    ---------------------------------------
+    /            |  /en/VERSION/index.html
+    /some/path/  |  /some/path/
 
-The purpose of this repo is for experimental code. Examples include demo apps,
-native api explorations, or anything really that does not fit in an existing Cordova platform.
+## Setup
 
-## Project Organization
+### DNS
 
-> Everyone works on a branch
+__Name:__ `docs.cordova.io`
 
-`master` branch should *never* have content.
+__Url:__ `http://mwbrooks.redirect-docs-cordova-io.jit.su`
 
-Each project should create a separate branch to work on. There are major benefits
-to this practice:
+__Redirect Type:__ 302
 
-- Each project has an isolate git history, which allows for easy migration to
-  a new git repository;
-- Working directory is not polluted with the files of other projects.
-- Projects will not step on each others toes.
+### Hosting
 
-## Moving Out of Labs
+__Service:__ [Nodejitsu](http://nodejitsu.com)
 
-Someday, your labs project may have it's own repository. You can easily move
-all of your Git history to your new repository:
+__Account:__ mwbrooks (Michael Brooks)
 
-    # cd to labs and checkout your project's branch
-    cd incubator-cordova-labs
-    git checkout my-branch
+__URL:__ [http://mwbrooks.redirect-docs-cordova-io.jit.su/](http://mwbrooks.redirect-docs-cordova-io.jit.su/)
 
-    # add your new repository as a remote
-    git add remote my-remote <url>
+## Usage
 
-    # currently, my-remote is empty (has no commits)
+### Deployment
 
-    # push my-branch to my-remote's master branch
-    git push my-remote my-branch:master
+    $ jitsu deploy
 
-    # now clone your new project (my-remote)
-    cd ..
-    git clone <url>
+### Updating Default Version
+
+    $ echo 2.5.0 > VERSION
+
+    $ git commit -am "Default redirect to version 2.5.0"
+
+    $ jitsu deploy
