@@ -27,5 +27,8 @@
             "url": "http://michaelbrooks.ca/"
         }
     ],
+    "domains": [
+        "stage.docs.cordova.io"
+    ],
     "subdomain": "mwbrooks.redirect-docs-cordova-io"
 }
