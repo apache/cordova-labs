@@ -1,0 +1,14 @@
+{
+  "name": "cordova-filetransfer",
+  "subdomain": "cordova-filetransfer",
+  "scripts": {
+    "start": "server.js"
+  },
+  "version": "0.0.7",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "dependencies": {
+    "formidable": "1.0.x"
+  }
+}
