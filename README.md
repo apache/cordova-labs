@@ -55,7 +55,7 @@ Where:
   - webOS
   - FireFoxOS
 
-If no `platforms` are specified explicitly, the "core" platforms will be included in an issue (Android, iOS, BlackBerry, Windows Phone 7 + 8, Windows 8, FirefoxOS).
+If no `platforms` are specified explicitly, the "core" platforms will be included in an issue (Android, iOS, BlackBerry, Windows Phone 7 + 8, Windows 8, Mac/OSX).
 
 ## Contributors
 

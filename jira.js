@@ -257,7 +257,7 @@ request.get(API_URL + 'project/' + JIRA_PROJECT_KEY + '/components', function(er
                                     }
                                 });
                             } else {
-                                platforms = ['Android', 'BlackBerry', 'iOS', 'WP7', 'WP8', 'Windows 8', 'FirefoxOS']
+                                platforms = ['Android', 'BlackBerry', 'iOS', 'WP7', 'WP8', 'Windows 8', 'Mac']
                             }
                             var num_callbacks = 3 + platforms.length;
                             var end = n(num_callbacks, function() {
