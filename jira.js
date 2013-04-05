@@ -40,7 +40,7 @@ var sub = {
         }
     }
 };
-var platform_labels = ['Android', 'Bada', 'FirefoxOS', 'BlackBerry', 'iOS', 'Mac', 'Qt', 'Tizen', 'webOS', 'Windows 8', 'WP7', 'WP8'];
+var platform_labels = ['Android', 'Bada', 'FirefoxOS', 'BlackBerry', 'iOS', 'OSX', 'Qt', 'Tizen', 'webOS', 'Windows 8', 'WP7', 'WP8'];
 
 function usage() {
     console.log("Usage: node jira.js --username=<username> --password=<password>");
@@ -56,7 +56,7 @@ function usage() {
     console.log("The --platforms parameter allows you to specify specific platforms to tag as sub-issues.");
     console.log("By default, each issue will have a JavaScript, Docs and mobile-spec (tests) sub-issue created.");
     console.log("By default, the core platforms (Android, iOS, BlackBerry, Windows Phone 7 + 8, Windows 8 and FirefoxOS) will be included as sub-issues.");
-    console.log("Acceptable platform strings are: android, ios, blackberry, wp7, wp8, windows8, firefoxos, webos, tizen, qt, mac");
+    console.log("Acceptable platform strings are: android, ios, blackberry, wp7, wp8, windows8, firefoxos, webos, tizen, qt, osx");
     console.log("Example: node jira.js --username=fil --password=poop --summary=\"Add 'blow up phone' feature\" --description=\"add a new api (`window.blowup`) that will allow you to destroy a phone.\"");
 }
 function create(json, callback) {
@@ -148,7 +148,7 @@ request.get(API_URL + 'project/' + JIRA_PROJECT_KEY + '/components', function(er
                         }
                         console.log('Parent issue created.');
 
-                        // 40 is the total number of subtasks currently in a tag parent issue
+                        // 42 is the total number of subtasks currently in a tag parent issue
                         // breakdown:
                         // - tag js
                         // - tag hello world app
@@ -156,12 +156,10 @@ request.get(API_URL + 'project/' + JIRA_PROJECT_KEY + '/components', function(er
                         // - tag docs
                         // - tag cli
                         // - 12 platforms * 2 tasks (update js, tag) = 24 
-                        // - minus 1: cordova-mac doesn't need update-js
                         // - 12 platforms * 1 optional task (update sample app) = 12
-                        // - minus 1: cordova-mac doesn't need update-app
                         // - generate source release
-                        //   = 40
-                        var num_callbacks = 40;
+                        //   = 42
+                        var num_callbacks = 42;
                         if (no_app) num_callbacks -= 11;
                         var end = n(num_callbacks, function() {
                             console.log('All sub-tasks created. JIRA spam complete.');
@@ -183,6 +181,7 @@ request.get(API_URL + 'project/' + JIRA_PROJECT_KEY + '/components', function(er
                         create(subtask(parent_key, "Update JavaScript for BlackBerry", "Update the cordova.js after CordovaJS has been tagged.", component_map['BlackBerry'], version_id), subtask_error_check);
                         create(subtask(parent_key, "Update JavaScript for FirefoxOS", "Update the cordova.js after CordovaJS has been tagged.", component_map['FirefoxOS'], version_id), subtask_error_check);
                         create(subtask(parent_key, "Update JavaScript for iOS", "Update the cordova.js after CordovaJS has been tagged.", component_map['iOS'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Update JavaScript for OS X", "Update the cordova.js after CordovaJS has been tagged.", component_map['OSX'], version_id), subtask_error_check);
                         create(subtask(parent_key, "Update JavaScript for Qt", "Update the cordova.js after CordovaJS has been tagged.", component_map['Qt'], version_id), subtask_error_check);
                         create(subtask(parent_key, "Update JavaScript for Tizen", "Update the cordova.js after CordovaJS has been tagged.", component_map['Tizen'], version_id), subtask_error_check);
                         create(subtask(parent_key, "Update JavaScript for webOS", "Update the cordova.js after CordovaJS has been tagged.", component_map['webOS'], version_id), subtask_error_check);
@@ -195,6 +194,7 @@ request.get(API_URL + 'project/' + JIRA_PROJECT_KEY + '/components', function(er
                             create(subtask(parent_key, "Update www/ Application for BlackBerry", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['BlackBerry'], version_id), subtask_error_check);
                             create(subtask(parent_key, "Update www/ Application for FirefoxOS", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['FirefoxOS'], version_id), subtask_error_check);
                             create(subtask(parent_key, "Update www/ Application for iOS", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['iOS'], version_id), subtask_error_check);
+                            create(subtask(parent_key, "Update www/ Application for OS X", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['OSX'], version_id), subtask_error_check);
                             create(subtask(parent_key, "Update www/ Application for Qt", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Qt'], version_id), subtask_error_check);
                             create(subtask(parent_key, "Update www/ Application for Tizen", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['Tizen'], version_id), subtask_error_check);
                             create(subtask(parent_key, "Update www/ Application for webOS", "Update the www/ sample application after App-Hello-World has been tagged. IMPORTANT: Remove irrelevant platfroms from www/res/icon and www/res/screen.", component_map['webOS'], version_id), subtask_error_check);
@@ -207,7 +207,7 @@ request.get(API_URL + 'project/' + JIRA_PROJECT_KEY + '/components', function(er
                         create(subtask(parent_key, "Tag BlackBerry", "After updating the JavaScript and sample application, the release can be tagged.", component_map['BlackBerry'], version_id), subtask_error_check);
                         create(subtask(parent_key, "Tag FirefoxOS", "After updating the JavaScript and sample application, the release can be tagged.", component_map['FirefoxOS'], version_id), subtask_error_check);
                         create(subtask(parent_key, "Tag iOS", "After updating the JavaScript and sample application, the release can be tagged.", component_map['iOS'], version_id), subtask_error_check);
-                        create(subtask(parent_key, "Tag Mac", "After updating the JavaScript and sample application, the release can be tagged.", component_map['Mac'], version_id), subtask_error_check);
+                        create(subtask(parent_key, "Tag OS X", "After updating the JavaScript and sample application, the release can be tagged.", component_map['OSX'], version_id), subtask_error_check);
                         create(subtask(parent_key, "Tag Qt", "After updating the JavaScript and sample application, the release can be tagged.", component_map['Qt'], version_id), subtask_error_check);
                         create(subtask(parent_key, "Tag Tizen", "After updating the JavaScript and sample application, the release can be tagged.", component_map['Tizen'], version_id), subtask_error_check);
                         create(subtask(parent_key, "Tag webOS", "After updating the JavaScript and sample application, the release can be tagged.", component_map['webOS'], version_id), subtask_error_check);
@@ -257,7 +257,7 @@ request.get(API_URL + 'project/' + JIRA_PROJECT_KEY + '/components', function(er
                                     }
                                 });
                             } else {
-                                platforms = ['Android', 'BlackBerry', 'iOS', 'WP7', 'WP8', 'Windows 8', 'Mac']
+                                platforms = ['Android', 'BlackBerry', 'iOS', 'WP7', 'WP8', 'Windows 8', 'OSX']
                             }
                             var num_callbacks = 3 + platforms.length;
                             var end = n(num_callbacks, function() {
