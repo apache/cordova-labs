@@ -45,6 +45,7 @@ Where:
  - `platforms`: a comma-delimited list of applicable platforms. acceptable entries here are (NOTE: case sensitive!):
   - Android
   - iOS
+  - OSX
   - BlackBerry
   - WP7
   - WP8
@@ -55,7 +56,7 @@ Where:
   - webOS
   - FireFoxOS
 
-If no `platforms` are specified explicitly, the "core" platforms will be included in an issue (Android, iOS, BlackBerry, Windows Phone 7 + 8, Windows 8, Mac/OSX).
+If no `platforms` are specified explicitly, the "core" platforms will be included in an issue (Android, iOS, BlackBerry, Windows Phone 7 + 8, Windows 8, OSX).
 
 ## Contributors
 
