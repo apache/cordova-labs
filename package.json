@@ -1,7 +1,7 @@
 {
     "name": "redirect-docs-cordova-io",
     "description": "Redirect/Rewrite requests from 'docs.cordova.io' to 'cordova.apache.org/docs'",
-    "version": "0.0.1-13",
+    "version": "0.0.1-14",
     "repository": {
         "type": "git",
         "url": "git://github.com/apache/cordova-labs"
