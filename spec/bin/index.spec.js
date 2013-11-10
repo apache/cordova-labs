@@ -13,13 +13,9 @@ var shell = require('shelljs'),
 
 describe('$ doclet [options] <path>', function() {
     beforeEach(function() {
-        bin = 'node ' + path.resolve(path.join(__dirname, '..', '..', 'bin'));
+        bin = 'node ' + path.resolve(path.join(__dirname, '..', '..', 'bin', 'index.js'));
         options = { silent: true };
         spyOn(process.stdout, 'write');
-    });
-
-    it('should exist', function() {
-        expect(shell.test('-e', bin)).toEqual(true);
     });
 
     it('should have exit code 0', function() {
