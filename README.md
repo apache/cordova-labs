@@ -7,6 +7,18 @@
 Doclet is a modular documentation system. It can parse any type of documentation
 and render to any format.
 
+## CLI
+
+    $ doclet path/to/project
+
+## Library
+
+    var doclet = require('doclet');
+
+    doclet.compile('path/to/project', function(e) {
+        // all done
+    });
+
 [travis-ci-img]: https://travis-ci.org/mwbrooks/cordova-labs.png?branch=doclet
 [travis-ci-url]: https://travis-ci.org/mwbrooks/cordova-labs
 
