@@ -23,7 +23,8 @@
         "node": ">=0.10.0"
     },
     "dependencies": {
-        "optimist": "0.6.0"
+        "optimist": "0.6.0",
+        "shelljs": "0.2.6"
     },
     "devDependencies": {
         "jasmine-node": "1.8.0"
