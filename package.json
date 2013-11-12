@@ -23,6 +23,7 @@
         "node": ">=0.10.0"
     },
     "dependencies": {
+        "node-dir": "0.1.5",
         "optimist": "0.6.0",
         "shelljs": "0.2.6"
     },
