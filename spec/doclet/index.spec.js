@@ -16,15 +16,25 @@ describe('doclet.compile(path)', function() {
     spyOn(dir, 'paths');
   });
 
-  it('should not require path argument', function() {
-    expect(doclet.compile).not.toThrow();
-  });
+  describe('path parameter', function() {
+    it('should not be required', function() {
+      expect(doclet.compile).not.toThrow();
+    });
 
-  it('should default path to cwd', function() {
-    doclet.compile();
-    expect(dir.paths).toHaveBeenCalledWith(
-      process.cwd(),
-      jasmine.any(Function)
-    );
+    it('should default cwd', function() {
+      doclet.compile();
+      expect(dir.paths).toHaveBeenCalledWith(
+        process.cwd(),
+        jasmine.any(Function)
+      );
+    });
+
+    it('should be supported', function() {
+      doclet.compile(options);
+      expect(dir.paths).toHaveBeenCalledWith(
+        options,
+        jasmine.any(Function)
+      );
+    });
   });
 });
