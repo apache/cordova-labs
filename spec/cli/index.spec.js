@@ -11,19 +11,19 @@ var cli = require('../../lib/cli'),
  */
 
 describe('cli.exec(argv)', function() {
-    beforeEach(function() {
-        argv = ['node', '/usr/local/bin/doclet'];
-        spyOn(doclet, 'compile');
-    });
+  beforeEach(function() {
+    argv = ['node', '/usr/local/bin/doclet'];
+    spyOn(doclet, 'compile');
+  });
 
-    it('should call doclet.compile', function() {
-        cli.exec(argv);
-        expect(doclet.compile).toHaveBeenCalledWith(undefined);
-    });
+  it('should call doclet.compile', function() {
+    cli.exec(argv);
+    expect(doclet.compile).toHaveBeenCalledWith(undefined);
+  });
 
-    it('should support a path argument', function() {
-        argv.push('/some/path');
-        cli.exec(argv);
-        expect(doclet.compile).toHaveBeenCalledWith('/some/path');
-    });
+  it('should support a path argument', function() {
+    argv.push('/some/path');
+    cli.exec(argv);
+    expect(doclet.compile).toHaveBeenCalledWith('/some/path');
+  });
 });

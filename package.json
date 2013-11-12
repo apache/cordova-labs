@@ -1,42 +1,42 @@
 {
-    "name": "doclet",
-    "description": "Your modular documentation system.",
-    "version": "0.0.1",
-    "homepage": "https://github.com/apache/cordova-labs/tree/doclet",
-    "repository": {
-        "type": "git",
-        "url": "https://git-wip-us.apache.org/repos/asf/cordova-labs.git"
-    },
-    "keywords": [
-        "docs",
-        "documentation"
-    ],
-    "preferGlobal": "true",
-    "main": "./lib/doclet/index.js",
-    "bin": {
-        "doclet": "./bin/index.js"
-    },
-    "scripts": {
-        "test": "jasmine-node --color spec"
-    },
-    "engines": {
-        "node": ">=0.10.0"
-    },
-    "dependencies": {
-        "node-dir": "0.1.5",
-        "optimist": "0.6.0",
-        "shelljs": "0.2.6"
-    },
-    "devDependencies": {
-        "jasmine-node": "1.8.0"
-    },
-    "optionalDependencies": {
-    },
-    "author": {
-        "name": "Michael Brooks",
-        "email": "michael@michaelbrooks.ca",
-        "url": "http://michaelbrooks.ca/"
-    },
-    "contributors": [
-    ]
+  "name": "doclet",
+  "description": "Your modular documentation system.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/apache/cordova-labs/tree/doclet",
+  "repository": {
+    "type": "git",
+    "url": "https://git-wip-us.apache.org/repos/asf/cordova-labs.git"
+  },
+  "keywords": [
+    "docs",
+    "documentation"
+  ],
+  "preferGlobal": "true",
+  "main": "./lib/doclet/index.js",
+  "bin": {
+    "doclet": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "jasmine-node --color spec"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "node-dir": "0.1.5",
+    "optimist": "0.6.0",
+    "shelljs": "0.2.6"
+  },
+  "devDependencies": {
+    "jasmine-node": "1.8.0"
+  },
+  "optionalDependencies": {
+  },
+  "author": {
+    "name": "Michael Brooks",
+    "email": "michael@michaelbrooks.ca",
+    "url": "http://michaelbrooks.ca/"
+  },
+  "contributors": [
+  ]
 }
