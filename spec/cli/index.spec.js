@@ -18,6 +18,12 @@ describe('cli.exec(argv)', function() {
 
     it('should call doclet.compile', function() {
         cli.exec(argv);
-        expect(doclet.compile).toHaveBeenCalled();
+        expect(doclet.compile).toHaveBeenCalledWith(undefined);
+    });
+
+    it('should support a path argument', function() {
+        argv.push('/some/path');
+        cli.exec(argv);
+        expect(doclet.compile).toHaveBeenCalledWith('/some/path');
     });
 });
