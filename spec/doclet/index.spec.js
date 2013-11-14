@@ -4,6 +4,7 @@
 
 var dir = require('node-dir'),
     doclet = require('../../lib/doclet'),
+    fs = require('fs'),
     options;
 
 /*!
@@ -35,6 +36,25 @@ describe('doclet.compile(path)', function() {
         options,
         jasmine.any(Function)
       );
+    });
+  });
+
+  describe('markdown parser', function() {
+    beforeEach(function() {
+      dir.paths.andCallFake(function(path, callback) {
+        callback(null, { files: [
+          '/some/path/file-1.md',
+          '/some/path/file-2.md',
+          '/some/path/file-3.md'
+        ]});
+      });
+      spyOn(fs, 'readFileSync').andReturn('# Markdown');
+      spyOn(doclet, 'markdown');
+    });
+
+    it('should be called for each file', function() {
+      doclet.compile(options);
+      expect(doclet.markdown.calls.length).toEqual(3);
     });
   });
 });
