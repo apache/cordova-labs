@@ -1,5 +1,5 @@
 {
-    "name": "redirect-docs-cordova-io",
+    "name": "docs-cordova-io",
     "description": "Redirect/Rewrite requests from 'docs.cordova.io' to 'cordova.apache.org/docs'",
     "version": "0.0.1",
     "repository": {
@@ -26,10 +26,5 @@
             "email": "michael@michaelbrooks.ca",
             "url": "http://michaelbrooks.ca/"
         }
-    ],
-    "domains": [
-        "docs.cordova.io",
-        "stage.docs.cordova.io"
-    ],
-    "subdomain": "mwbrooks.redirect-docs-cordova-io"
+    ]
 }
