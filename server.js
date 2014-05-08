@@ -2,6 +2,7 @@ var formidable = require('formidable'),
     http = require('http'),
     util = require('util'),
     port = process.env.PORT || 5000;
+    stringify = require('json-stringify-safe');
 
 http.createServer(function (req, res) {
 	
@@ -35,10 +36,9 @@ http.createServer(function (req, res) {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
             res.writeHead(200, {'content-type': 'text/plain'});
-            console.log(util.inspect({fields: fields, files: files}));
+            console.log(stringify({fields: fields, files: files}));
             
-            res.write('received upload:\n\n');
-            res.write(util.inspect({fields: fields, files: files}));
+            res.write(stringify({fields: fields, files: files}));
             console.log
             res.end("\n");
         });
@@ -50,10 +50,9 @@ http.createServer(function (req, res) {
 	        var form = new formidable.IncomingForm();
 	        form.parse(req, function(err, fields, files) {
 	            res.writeHead(200, {'content-type': 'text/plain'});
-	            console.log(util.inspect({fields: fields, files: files}));
+	            console.log(stringify({fields: fields, files: files}));
 
-	            res.write('received upload:\n\n');
-	            res.write(util.inspect({fields: fields, files: files}));
+	            res.write(stringify({fields: fields, files: files}));
 	            console.log
 	            res.end("\n");
 	        });
