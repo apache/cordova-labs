@@ -14,7 +14,7 @@ Prerequisties:
 
 A lot of good documentation is available on the [Mozilla Developer Network](https://developer.mozilla.org/en/docs/Mozilla/Firefox_OS)
 
-A simulator (runs as a Firefox plugin) is availble [here](http://people.mozilla.org/~myk/r2d2b2g/)
+A simulator (runs as a Firefox plugin) is available [here](http://people.mozilla.org/~myk/r2d2b2g/)
 
 The following software is required to package and deploy an app directly to a Firefox OS device:
 -[Android SDK](http://developer.android.com/sdk/index.html)
