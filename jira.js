@@ -46,7 +46,7 @@ function usage() {
     console.log("Usage: node jira.js --username=<username> --password=<password>");
     console.log("Additionally, you can either create a task for tagging a release, or create a generic top-level issue.");
     console.log("TAGGING A RELEASE:");
-    console.log("    node jira.js --username=<blah> --pasword=<blah> --version=<version> [--no_app]");
+    console.log("    node jira.js --username=<blah> --password=<blah> --version=<version> [--no_app]");
     console.log("<version> is a version string such as 2.4.0rc1, 2.7.1, 3.0.1, etc.");
     console.log("The --no_app parameter will not create subtasks to update the hello-world application (in case no changes went into it).");
     console.log("Example: node jira.js --version=2.3.0rc2 --username=fil --password=poop");

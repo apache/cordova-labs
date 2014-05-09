@@ -25,7 +25,7 @@ Where:
 
 To create an issue for tagging a new release of cordova, use the jira.js script in the following form:
 
-    node jira.js --username=<username> --pasword=<password> --version=<version> [--no_app]
+    node jira.js --username=<username> --password=<password> --version=<version> [--no_app]
 
 Where:
 
@@ -36,7 +36,7 @@ Where:
 
 To create an issue with subtasks for platforms, docs, and tests (for new API additions, cross-platform features, that kind of stuff), use the jira script in the following form:
 
-    node jira.js --username=<username> --pasword=<password> --summary="summary text" --description="description text" [--platforms="<platform>,<platform>"]
+    node jira.js --username=<username> --password=<password> --summary="summary text" --description="description text" [--platforms="<platform>,<platform>"]
 
 Where:
 
