@@ -1,42 +1,43 @@
-# Cordova Labs
+# Cordova Issues Redirect Server
 
-> Caution: Safety Goggles are Recommended!
+> http://issues.cordova.io
 
-## Purpose
+## Redirect Logic
 
-The purpose of this repo is for experimental code. Examples include demo apps,
-native api explorations, or anything really that does not fit in an existing Cordova platform.
+    Request      |  Type  |  Redirect
+    -------------|--------|----------------
+    /            |  302   |  https://issues.apache.org/jira/browse/CB
+    /CB-7289     |  302   |  https://issues.apache.org/jira/browse/CB-7289
 
-## Project Organization
+## Contribute
 
-> Everyone works on a branch
+### Install
 
-`master` branch should *never* have content.
+1. Install [Heroku Toolkit](https://toolbelt.heroku.com/)
+1. `$ npm install`
 
-Each project should create a separate branch to work on. There are major benefits
-to this practice:
+### Start Server
 
-- Each project has an isolate git history, which allows for easy migration to
-  a new git repository;
-- Working directory is not polluted with the files of other projects.
-- Projects will not step on each others toes.
+    $ npm start
 
-## Migrating Repositories
+### Deploy to Heroku
 
-One day, you labs project may grow up and need it's own repository.
-You can easily move all of your Git history to your new repository with the
-following steps:
+    # Sanity test that Heroku Procfile works
+    $ foreman start
 
-    # cd to labs and checkout your project's branch
-    git checkout my-branch
+    # Add Heroku remote repository
+    $ git remote add heroku git@heroku.com:issues-cordova-io.git
 
-    # add your new repository as a remote
-    git add remote my-remote <url>
+    # Heroku must deploy to master branch
+    $ git push heroku issues-cordova-io:master
 
-    # currently, my-remote should be empty (no commits)
+## Heroku Details
 
-    # push my-branch to my-remote's master branch
-    git push my-remote my-branch:master
+- Project: [issues-cordova-io](https://dashboard.heroku.com/apps/issues-cordova-io/resources)
+- Git Repo: [git@heroku.com:issues-cordova-io.git](git@heroku.com:issues-cordova-io.git)
+- Owner: Michael Brooks <michael@michaelbrooks.ca>
 
-    # now clone your new project (my-remote)
-    git clone <url>
+To become a collaborator to the Heroku project:
+
+- Sign up for a [Heroku account](http://heroku.com)
+- Email dev@cordova.apache.org and provide your Heroku account
