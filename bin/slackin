@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+var pkg = require('../package');
+var program = require('commander');
+var slackin = require('../node');
+
+program
+.version(pkg.version)
+.usage('[options] <slack-subdomain> <api-token>')
+.option('-p, --port <port>', 'Port to listen on [$PORT or 3000]', process.env.PORT || 3000)
+.option('-c, --channels [<chan>]', 'One or more comma-separated channel names to allow single-channel guests [$SLACK_CHANNELS]', process.env.SLACK_CHANNELS)
+.option('-c, --channel <chan>', 'Single channel guest invite (deprecated) [$SLACK_CHANNEL]', process.env.SLACK_CHANNEL)
+.option('-i, --interval <int>', 'How frequently (ms) to poll Slack [$SLACK_INTERVAL or 1000]', process.env.SLACK_INTERVAL || 1000)
+.option('-s, --silent', 'Do not print out warns or errors')
+.option('-c, --css <file>', 'Full URL to a custom CSS file to use on the main page')
+.parse(process.argv);
+
+if (program.args.length != 2) {
+  program.help();
+} else {
+  program.org = program.args[0];
+  program.token = program.args[1];
+}
+
+// support deprecated option
+if (!program.channels && program.channel) {
+  program.channels = program.channel;
+}
+
+var port = program.port;
+slackin(program).listen(port, function(err){
+  if (err) throw err;
+  if (!program.silent) console.log('%s – listening on *:%d', new Date, port);
+});

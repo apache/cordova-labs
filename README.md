@@ -1,63 +1,116 @@
-<!--
-#
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-#
--->
 
-# Cordova Labs
+# slackin
 
-> Caution: Safety Goggles are Recommended!
+A little server that enables public access
+to a Slack server. Like Freenode, but on Slack.
 
-## Purpose
+It provides
 
-The purpose of this repo is for experimental code. Examples include demo apps,
-native api explorations, or anything really that does not fit in an existing Cordova platform.
+- A landing page you can point users to fill in their
+  emails and receive an invite (`http://slack.yourdomain.com`)
+- An `<iframe>` badge to embed on any website
+  that shows connected users in *realtime* with socket.io.
+- A SVG badge that works well from static mediums
+  (like GitHub README pages)
 
-## Project Organization
+Read more about the [motivations and history](http://rauchg.com/slackin) behind Slackin.
 
-> Everyone works on a branch
+## How to use
 
-`master` branch should *never* have content.
+### Server
 
-Each project should create a separate branch to work on. There are major benefits
-to this practice:
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/rauchg/slackin/tree/0.5.0)
 
-- Each project has an isolate git history, which allows for easy migration to
-  a new git repository;
-- Working directory is not polluted with the files of other projects.
-- Projects will not step on each others toes.
+Or install it and launch it on your server:
 
-## Migrating Repositories
+```bash
+$ npm install -g slackin
+$ slackin "your-slack-subdomain" "your-slack-token"
+```
 
-One day, you labs project may grow up and need it's own repository.
-You can easily move all of your Git history to your new repository with the
-following steps:
+You can find your API token at [api.slack.com/web](https://api.slack.com/web) – note that the user you use to generate the token must be an admin. You may want to create a dedicated `@slackin-inviter` user (or similar) for this.
 
-    # cd to labs and checkout your project's branch
-    git checkout my-branch
+The available options are:
 
-    # add your new repository as a remote
-    git add remote my-remote <url>
+```
+Usage: slackin [options] <slack-subdomain> <api-token>
 
-    # currently, my-remote should be empty (no commits)
+Options:
 
-    # push my-branch to my-remote's master branch
-    git push my-remote my-branch:master
+  -h, --help               output usage information
+  -V, --version            output the version number
+  -p, --port <port>        Port to listen on [$PORT or 3000]
+  -c, --channels [<chan>]  One or more comma-separated channel names to allow single-channel guests [$SLACK_CHANNELS]
+  -i, --interval <int>     How frequently (ms) to poll Slack [$SLACK_INTERVAL or 1000]
+  -s, --silent             Do not print out warns or errors
+```
 
-    # now clone your new project (my-remote)
-    git clone <url>
+**Important: if you use Slackin in single-channel mode, you'll only be
+able to invite as many external accounts as paying members you have
+times 5. If you are not getting invite emails, this might be the reason.
+Workaround: sign up for a free org, and set up Slackin to point to it
+(all channels will be visible).**
+
+### Realtime Badge
+
+[![](https://cldup.com/IaiPnDEAA6.gif)](http://slack.socket.io)
+
+```html
+<script async defer src="http://slackin.yourhost.com/slackin.js"></script>
+```
+
+or for the large version, append `?large`:
+
+```html
+<script async defer src="http://slackin.yourhost.com/slackin.js?large"></script>
+```
+
+### SVG
+
+[![](https://cldup.com/jWUT4QFLnq.png)](http://slack.socket.io)
+
+```html
+<img src="http://slackin.yourhost.com/badge.svg">
+```
+
+### Landing page
+
+[![](https://cldup.com/WIbawiqp0Q.png)](http://slack.socket.io)
+
+Point to `http://slackin.yourhost.com`.
+
+**Note:** the image for the logo of the landing page
+is retrieved from the Slack API. If your organization
+doesn't have one configured, it won't be shown.
+
+## API
+
+Requiring `slackin` as a module will return
+a `Function` that creates a `HTTP.Server` instance
+that you can manipulate.
+
+```js
+require('slackin')({
+  token: 'yourtoken', // required
+  interval: 1000,
+  org: 'your-slack-subdomain', // required
+  channels: 'channel,channel,...' // for single channel mode
+  silent: false // suppresses warnings
+}).listen(3000);
+```
+
+This will show response times from Slack and how many
+online users you have on the console.
+
+By default logging is enabled.
+
+## Credits
+
+- The SVG badge generation was taken from the
+excellent [shields](https://github.com/badges/shields) project.
+- The button CSS is based on
+[github-buttons](https://github.com/mdo/github-buttons).
+
+## License
+
+MIT
