@@ -5,7 +5,9 @@ var formidable = require('formidable'),
     stringify = require('json-stringify-safe');
 
 http.createServer(function (req, res) {
-	
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
 	var basic_auth_username = "cordova_user";
 	var basic_auth_password = "cordova_password";
 	
