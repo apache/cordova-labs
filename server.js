@@ -4,6 +4,8 @@ var formidable = require('formidable'),
     port = process.env.PORT || 5000;
     stringify = require('json-stringify-safe');
 
+var DIRECT_UPLOAD_LIMIT = 32; // bytes
+
 http.createServer(function (req, res) {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -35,15 +37,33 @@ http.createServer(function (req, res) {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end("Hello!\n");
     } else if (req.url == '/upload' && (req.method.toLowerCase() == 'post' || req.method.toLowerCase() == 'put')) {
-        var form = new formidable.IncomingForm();
-        form.parse(req, function(err, fields, files) {
-            res.writeHead(200, {'content-type': 'text/plain'});
-            console.log(stringify({fields: fields, files: files}));
+        if(req.headers["content-type"].indexOf("multipart/form-data") === 0) {
+            console.log("multipart/form upload");
+            var form = new formidable.IncomingForm();
+            form.parse(req, function(err, fields, files) {
+                res.writeHead(200, {'content-type': 'text/plain'});
+                console.log(stringify({fields: fields, files: files}));
 
-            res.write(stringify({fields: fields, files: files}));
-            console.log
-            res.end("\n");
-        });
+                res.write(stringify({fields: fields, files: files}));
+                res.end("\n");
+            });
+        } else {
+            console.log("direct upload");
+            var body = '';
+            req.on('data', function(chunk) {
+                body += chunk;
+                if (body.length > DIRECT_UPLOAD_LIMIT) { 
+                    req.connection.destroy();
+                }
+            });
+
+            req.on('end', function() {
+                console.log('All the data received is: ' + body);
+                res.writeHead(200, "OK", {'content-type': 'text/plain'});
+                res.write(body);
+                res.end();
+            });
+        }
     } else if (req.url == '/upload_basic_auth' && req.method.toLowerCase() == 'post') {
         if (username != basic_auth_username && password != basic_auth_password) {
             res.writeHead(401, {'Content-Type': 'text/plain'});
@@ -55,7 +75,6 @@ http.createServer(function (req, res) {
                 console.log(stringify({fields: fields, files: files}));
 
                 res.write(stringify({fields: fields, files: files}));
-                console.log
                 res.end("\n");
             });
         }
