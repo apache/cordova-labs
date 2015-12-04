@@ -9,7 +9,8 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "json-stringify-safe": "5.0.0",
-    "formidable": "1.0.x"
+    "formidable": "1.0.x",
+    "iconv": "2.1.x",
+    "json-stringify-safe": "5.0.0"
   }
 }

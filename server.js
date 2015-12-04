@@ -6,6 +6,11 @@ var formidable = require('formidable'),
 
 var DIRECT_UPLOAD_LIMIT = 32; // bytes
 
+// convert from UTF-8 to ISO-8859-1
+var LATIN1_SYMBOLS = '¥§©ÆÖÑøøø¼';
+var Iconv  = require('iconv').Iconv;
+var iconv = new Iconv('UTF-8', 'ISO-8859-1');
+
 http.createServer(function (req, res) {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -32,6 +37,13 @@ http.createServer(function (req, res) {
     } else if (req.url === "/robots.txt") {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.write("User-Agent: *\n");
+        res.end("Disallow: /\n");
+    } else if (req.url === "/download_non_utf") {
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.write("User-Agent: *\n");
+
+        res.write(iconv.convert(LATIN1_SYMBOLS));
+
         res.end("Disallow: /\n");
     } else if (req.url === "/") {
         res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -78,6 +90,17 @@ http.createServer(function (req, res) {
                 res.end("\n");
             });
         }
+    } else if (req.url == '/upload_non_utf' && req.method.toLowerCase() == 'post') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            res.writeHead(200, {'content-type': 'text/plain'});
+            console.log(stringify({fields: fields, files: files}));
+
+            var buffer = iconv.convert(stringify({fields: fields, files: files, latin1Symbols: LATIN1_SYMBOLS}));
+            res.write(buffer);
+
+            res.end("\n");
+        });
     } else if (req.url.match(/\d{3}/)) {
         var matches = req.url.match(/\d{3}/);
         status = matches[0];
