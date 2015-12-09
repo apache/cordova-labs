@@ -4,7 +4,7 @@ var formidable = require('formidable'),
     port = process.env.PORT || 5000;
     stringify = require('json-stringify-safe');
 
-var DIRECT_UPLOAD_LIMIT = 32; // bytes
+var DIRECT_UPLOAD_LIMIT = 85; // bytes
 
 // convert from UTF-8 to ISO-8859-1
 var LATIN1_SYMBOLS = '¥§©ÆÖÑøøø¼';
