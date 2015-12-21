@@ -9,8 +9,8 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "formidable": "1.0.x",
-    "iconv": "2.1.x",
+    "busboy": "0.2.12",
+    "iconv": "2.1.11",
     "json-stringify-safe": "5.0.0"
   }
 }
