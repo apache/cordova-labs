@@ -134,6 +134,10 @@ http.createServer(function (req, res) {
         }
     } else if (req.url == '/upload_non_utf' && req.method.toLowerCase() == 'post') {
         parseMultipartForm(req, res, respondWithParsedFormNonUTF);
+    } else if (req.url == '/upload_echo_headers' && req.method.toLowerCase() == 'post') {
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.write(stringify(req.headers));
+        res.end("\n");
     } else if (req.url.match(/\d{3}/)) {
         var matches = req.url.match(/\d{3}/);
         status = matches[0];
