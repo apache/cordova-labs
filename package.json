@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "busboy": "0.2.12",
-    "iconv": "2.1.11",
+    "iconv": "2.2.0",
     "json-stringify-safe": "5.0.0"
   }
 }
