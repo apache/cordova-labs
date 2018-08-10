@@ -9,12 +9,12 @@ Firefox OS is an open source operating system for smartphones and tablet compute
 cordova-firefoxos allows developers to use the cross platform APIs in Cordova to target the Firefox OS. Most APIs are just proxied to the matching Firefox OS API calls.
 
 
-Prerequisties:
+Prerequisites:
 ==============
 
 A lot of good documentation is available on the [Mozilla Developer Network](https://developer.mozilla.org/en/docs/Mozilla/Firefox_OS)
 
-A simulator (runs as a Firefox plugin) is availble [here](http://people.mozilla.org/~myk/r2d2b2g/)
+A simulator (runs as a Firefox plugin) is available [here](http://people.mozilla.org/~myk/r2d2b2g/)
 
 The following software is required to package and deploy an app directly to a Firefox OS device:
 -[Android SDK](http://developer.android.com/sdk/index.html)
