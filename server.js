@@ -1,16 +1,14 @@
 var http = require('http'),
     util = require('util'),
     port = process.env.PORT || 5000;
-    stringify = require('json-stringify-safe'),
+    stringify = require('json-stringify-safe'), 
     Busboy = require('busboy'),
     inspect = require('util').inspect;
 
 var DIRECT_UPLOAD_LIMIT = 85; // bytes
 
-// convert from UTF-8 to ISO-8859-1
 var LATIN1_SYMBOLS = '¥§©ÆÖÑøøø¼';
-var Iconv  = require('iconv').Iconv;
-var iconv = new Iconv('UTF-8', 'ISO-8859-1');
+var iconv  = require('iconv-lite');
 
 function parseMultipartForm(req, res, finishCb) {
     var fields = {}, files = {};
@@ -61,7 +59,7 @@ function respondWithParsedForm(req, res, parseResultObj) {
 
 function respondWithParsedFormNonUTF(req, res, parseResultObj) {
     parseResultObj["latin1Symbols"] = LATIN1_SYMBOLS;
-    var buffer = iconv.convert(stringify(parseResultObj));
+    var buffer = iconv.encode(stringify(parseResultObj), 'ISO-8859-1');
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.write(buffer);
     res.end("\n");
@@ -98,7 +96,7 @@ http.createServer(function (req, res) {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.write("User-Agent: *\n");
 
-        res.write(iconv.convert(LATIN1_SYMBOLS));
+        res.write(iconv.encode(LATIN1_SYMBOLS), 'ISO-8859-1');
 
         res.end("Disallow: /\n");
     } else if (req.url === "/") {
