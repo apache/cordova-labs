@@ -9,8 +9,8 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "busboy": "0.2.12",
-    "iconv": "2.2.0",
-    "json-stringify-safe": "5.0.0"
+    "busboy": "0.2.14",
+    "iconv-lite": "^0.4.24",
+    "json-stringify-safe": "5.0.1"
   }
 }
