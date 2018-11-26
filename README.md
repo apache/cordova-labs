@@ -1,34 +1,57 @@
-Description
-===========
+# Cordova Plugin File-Transfer Test Server
 
-This the test server for these Cordova FileTransfer Jasmine tests: https://github.com/apache/cordova-plugin-file-transfer/blob/master/tests/tests.js. It runs on cordova-vm.apache.org. Ask Dmitry Blotsky or Richard Knoll to deploy it.
+This the test server for the [Cordova Plugin File-Transfer's Jasmine tests](https://github.com/apache/cordova-plugin-file-transfer/blob/master/tests/tests.js). 
 
-Running
-=======
+It is used on the CI server that is running those tests, a current deployment of the server [is configured there as a parameter](https://github.com/apache/cordova-plugin-file-transfer/blob/master/.travis.yml#L69-L71) (http://sheltered-retreat-43956.herokuapp.com at the time of writing).
+    
+## Installation
 
-Control the server with the following commands (possibly requiring `sudo`):
+```shell
+git clone https://github.com/apache/cordova-labs.git
+cd cordova-labs
+git checkout cordova-filetransfer
+```
+ 
+## Usage
 
-    service filetserver start
-    service filetserver stop
-    service filetserver start
-    service filetserver restart
+### Running manually
 
-Updating
-========
+```shell
+node server.js
+```
 
-Update the server's code with the following commands (possibly requiring `sudo -u filetransfer`):
+### Configuring the File-Transfer plugin tests
 
-    cd /usr/local/filetransfer/cordova-labs
-    git pull
-    cd ..
-    npm install
+Set the [`FILETRANSFER_SERVER_ADDRESS` variable](https://github.com/apache/cordova-plugin-file-transfer/blob/9b322dec6790f6d273b8f707bc07976d778c4cf6/tests/plugin.xml#L33) when installing the plugin tests so they use your local service:
 
-For the changes to take effect, restart the server.
+```shell
+cordova plugin rm cordova-plugin-file-transfer-tests
+cordova plugin add path/to/cordova-plugin-file-transfer/tests --variable FILETRANSFER_SERVER_ADDRESS="http://yourlocal-IPAddressHere:5000"
+```
 
-Reference
-=========
+- Get your local IP by running:
 
-The server is run from an `init.d` script. For more information about `init.d`, see the [Wikipedia page][1] and the [reference][2].
+    ```shell
+    ifconfig # Linux, macOS
+    ipconfig # Windows
+    ```    
+    
+### Running on a server / as a service
 
-[1]: https://en.wikipedia.org/wiki/Init
-[2]: http://www.tldp.org/HOWTO/HighQuality-Apps-HOWTO/boot.html
+If your hosting provider supports [Procfiles](https://devcenter.heroku.com/articles/procfile), you don't need to do anything as this project contains one.
+
+Another more manual option is using `forever`:
+
+```
+# install
+npm install -g forever
+
+# start
+forever start server.js
+
+# restart
+forever restart server.js
+
+# stop
+forever start server.js
+```
